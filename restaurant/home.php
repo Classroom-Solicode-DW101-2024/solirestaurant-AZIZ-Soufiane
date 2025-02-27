@@ -11,6 +11,11 @@ require "config.php";
 </head>
 <body>
 <header>
+    <nav>
+        
+
+
+    </nav>
 
 </header>
 <main>

@@ -1,12 +1,12 @@
 <?php
 session_start();
 $host = 'localhost';
-$dbname = 'SoliRestaurant'; // Make sure this matches your database name
+$dbname = 'SoliRestaurant';
 $username = 'root';
 $password = '';
 
 try {
-    // Création d'une instance PDO
+    
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
@@ -20,7 +20,7 @@ function getLastIdClient() {
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $result= $stmt->fetch(PDO::FETCH_ASSOC);
-        if(empty($result['maxId'])) {
+        if(empty($result(['maxId']))) {
             $MaxId = 0;
         } else {
             $MaxId = $result['maxId'];
