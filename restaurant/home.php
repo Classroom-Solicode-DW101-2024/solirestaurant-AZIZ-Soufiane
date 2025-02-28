@@ -6,19 +6,33 @@ require "config.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="home.css?v=<?php echo time(); ?>">
     <title>Document</title>
 </head>
 <body>
 <header>
-    <nav>
-        
-
-
+    <nav class="navBar">
+        <img src="images/logo.png" alt="">
+        <div class="navMenu">
+            <ul>
+                <li>Home</li>
+                <li>About us</li>
+                <li>Contact us</li>
+            </ul>
+        </div>
     </nav>
 
 </header>
 <main>
+    <section class="heroSection">
+        <div class="food-image">
+            
+        </div>
+
+        <div class="text-Search">
+
+        </div>
+    </section>
     <?php foreach ($platsByCuisine as $typeCuisine => $plats): ?>
         <div class="cuisine-section">
             <h2 class="cuisine-title"><?= htmlspecialchars($typeCuisine) ?></h2>
