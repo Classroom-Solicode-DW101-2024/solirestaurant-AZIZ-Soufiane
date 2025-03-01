@@ -41,6 +41,10 @@ if(isset($_POST["submit"])){
             box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.6);
         }
 
+        .container img{
+            width: 80px;
+        }
+
         h2 {
             text-align: center;
             margin-bottom: 30px;
@@ -112,6 +116,7 @@ if(isset($_POST["submit"])){
 <body>
 
 <div class="container">
+    <img src="images/logo.png" alt="">
     <h2>Log In</h2>
     <form method="POST">
         <label for="tel">Phone Number:</label>

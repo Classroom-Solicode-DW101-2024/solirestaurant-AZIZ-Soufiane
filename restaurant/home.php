@@ -13,11 +13,36 @@ require "config.php";
 <header>
     <nav class="navBar">
         <img src="images/logo.png" alt="">
+        <section class="filter">
+        <form method="POST" action="">
+            <select name="categorieCriteria" id="categorieCriteria">
+                <option value="">Chercher par la catégorie</option>
+                <option value="plat-principal">Plat principal</option>
+                <option value="dessert">Dessert</option>
+                <option value="entrée">Entrée</option>
+            </select>
+
+            <select name="typeCriteria" id="typeCriteria">
+                <option value="">Chercher par le type de cuisine</option>
+                <option value="marocaine">Marocaine</option>
+                <option value="italienne">Italienne</option>
+                <option value="chinoise">Chinoise</option>
+                <option value="espagnole">Espagnole</option>
+                <option value="francaise">Française</option>
+            </select>
+
+            <button type="submit" id="searchBtn" name="search">
+                <i class="fa-solid fa-magnifying-glass"></i> Recherche
+            </button>
+            <button type="button" id="clearBtn" onclick="window.location.href='home.php'">
+                <i class="fa-regular fa-circle-xmark"></i> Clair
+            </button>
+        </form>
+    </section>
         <div class="navMenu">
             <ul>
-                <li>Home</li>
-                <li>About us</li>
-                <li>Contact us</li>
+                <li>Accueil</li>
+                <li>Contacter-nous</li>
             </ul>
         </div>
     </nav>
@@ -32,6 +57,8 @@ require "config.php";
         <div class="text-Search">
 
         </div>
+
+        
     </section>
     <?php foreach ($platsByCuisine as $typeCuisine => $plats): ?>
         <div class="cuisine-section">
@@ -43,6 +70,7 @@ require "config.php";
                         <h3><?= htmlspecialchars($plat['nomPlat']) ?></h3>
                         <p>Category : <?= htmlspecialchars($plat['categoriePlat']) ?></p>
                         <p>Price : <?= htmlspecialchars($plat['prix']) ?> $</p>
+                        <button id="OrderBtn">Order now</button>
                     </div>
                 </div>
             <?php endforeach; ?>
