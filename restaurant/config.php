@@ -39,15 +39,4 @@ function tel_existe($tel){
 }
 
 
-$sql = "SELECT * FROM plat";
-$stmt = $pdo->query($sql);
-$plats = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
-$platsByCuisine = [];
-foreach ($plats as $plat) {
-    $platsByCuisine[$plat['TypeCuisine']][] = $plat;
-}
 ?>
-
-

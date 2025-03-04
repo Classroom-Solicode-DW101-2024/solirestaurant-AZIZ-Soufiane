@@ -1,7 +1,7 @@
 <?php
 require 'config.php';
 
-$erreurs = []; // Initialize error array
+$erreurs = [];
 
 if (isset($_POST["btnSubmit"])) {
     $nom = trim($_POST["nom"] ?? '');
@@ -45,17 +45,7 @@ if (isset($_POST["btnSubmit"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Registration</title>
     <link rel="stylesheet" href="index.css">
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var notification = document.querySelector(".notification");
-            if (notification) {
-                notification.style.display = "block";
-                setTimeout(() => {
-                    notification.style.display = "none";
-                }, 3000);
-            }
-        });
-    </script>
+
 </head>
 <body>
 
