@@ -38,5 +38,4 @@ function tel_existe($tel){
     return $result;
 }
 
-
 ?>
