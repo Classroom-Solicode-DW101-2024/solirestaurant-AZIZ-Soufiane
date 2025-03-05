@@ -6,31 +6,31 @@ if (!isset($_SESSION['isLogin']) || !$_SESSION['isLogin']) {
     exit();
 }
 
-// Fetch orders for today
+
 $sql = "SELECT * FROM commande WHERE DATE(dateCmd) = CURDATE()";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch the total number of orders
+
 $sql = "SELECT COUNT(*) FROM commande";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $totalOrders = $stmt->fetchColumn();
 
-// Fetch the number of canceled orders
+
 $sql = "SELECT COUNT(*) FROM commande WHERE Statut = 'annulée'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $canceledOrders = $stmt->fetchColumn();
 
-// Fetch the total number of clients
+
 $sql = "SELECT COUNT(*) FROM client";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $totalClients = $stmt->fetchColumn();
 
-// Fetch dishes ordered today
+
 $sql = "SELECT plat.nomPlat, SUM(commande_plat.qte) as total_quantity
         FROM commande_plat
         JOIN plat ON commande_plat.idPlat = plat.idPlat
