@@ -6,10 +6,6 @@ if (!isset($_SESSION['isLogin']) || !$_SESSION['isLogin']) {
     exit();
 }
 
-if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-    die("Your cart is empty.");
-}
-
 if (isset($_POST['update_quantity'])) {
     $plat_id = $_POST['plat_id'];
     $new_quantity = (int) $_POST['quantity'];
