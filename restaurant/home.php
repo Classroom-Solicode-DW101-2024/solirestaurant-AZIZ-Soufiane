@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["search"])) {
 
 $result = $pdo->query($sql);
 $plats = $result->fetchAll(PDO::FETCH_ASSOC);
-// var_dump($plats);
+
 
 $platsByCuisine = [];
 foreach ($plats as $plat) {
@@ -38,25 +38,43 @@ foreach ($plats as $plat) {
 }
 
 if (isset($_POST['add_to_cart'])) {
+    $plat_id = $_POST['plat_id'];
+    $plat_name = $_POST['plat_name'];
+    $plat_price = $_POST['plat_price'];
+    $plat_image = $_POST['plat_image'];
+    $quantity = 1;
 
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
 
+    $found = false;
 
+    
+    foreach ($_SESSION['cart'] as &$item) {
+        if ($item['id'] == $plat_id) {
+            $item['quantity'] += $quantity;
+            $found = true;
+            break;
+        }
+    }
+    unset($item);
 
-    $plat = [
-        'id' => $_POST['plat_id'],
-        'name' => $_POST['plat_name'],
-        'price' => $_POST['plat_price'],
-        'image' => $_POST['plat_image'],
-        'quantity' => $_POST['quantity']
-    ];
-
-    $_SESSION['cart'][] = $plat;
+    
+    if (!$found) {
+        $_SESSION['cart'][] = [
+            'id' => $plat_id,
+            'name' => $plat_name,
+            'price' => $plat_price,
+            'image' => $plat_image,
+            'quantity' => $quantity
+        ];
+    }
 
     header("Location: home.php");
     exit();
-
-
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -100,7 +118,7 @@ if (isset($_POST['add_to_cart'])) {
         <div class="navMenu">
             <!-- client name positioning -->
             <ul>
-                <li>log-out</li>
+                <li>Déconnexion</li>
             </ul>
         </div>
     </nav>
@@ -121,15 +139,15 @@ if (isset($_POST['add_to_cart'])) {
                         <img src="<?= htmlspecialchars($plat['image']) ?>" alt="<?= htmlspecialchars($plat['nomPlat']) ?>">
                         <div class="card-content">
                             <h3><?= htmlspecialchars($plat['nomPlat']) ?></h3>
-                            <p>Category : <?= htmlspecialchars($plat['categoriePlat']) ?></p>
-                            <p>Price : <?= htmlspecialchars($plat['prix']) ?> $</p>
+                            <p>Categorie : <?= htmlspecialchars($plat['categoriePlat']) ?></p>
+                            <p>Prix : <?= htmlspecialchars($plat['prix']) ?> $</p>
                             <form method="POST">
                                 <input type="hidden" name="plat_id" value="<?=$plat['idPlat']?>">
                                 <input type="hidden" name="plat_name" value="<?=$plat['nomPlat']?>">
                                 <input type="hidden" name="plat_price" value="<?=$plat['prix']?>">
                                 <input type="hidden" name="plat_image" value="<?=$plat['image']?>">
                                 <input type="hidden" name="quantity" value="1">
-                                <button id="OrderBtn" name="add_to_cart">Order now</button>
+                                <button id="OrderBtn" name="add_to_cart">Commander</button>
                             </form>
                             
                         </div>
