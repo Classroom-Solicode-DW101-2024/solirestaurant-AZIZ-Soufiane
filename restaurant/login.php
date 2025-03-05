@@ -8,6 +8,7 @@ if(isset($_POST["submit"])){
         header("Location:register.php");
     } else {
         $_SESSION["client"] = $result;
+        $_SESSION["isLogin"] = true ;
         header("Location:home.php");
     }
 }

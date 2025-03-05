@@ -1,7 +1,7 @@
 <?php
 require 'config.php';
 
-if (!isset($_SESSION['isLoggin']) || !$_SESSION['isLoggin']) {
+if (!isset($_SESSION['isLogin']) || !$_SESSION['isLogin']) {
     header('Location: login.php');
     exit();
 }

@@ -8,7 +8,7 @@ if (isset($_GET["destroy"])) {
 }
 
 if (!isset($_SESSION["client"])) {
-    header("Location: index.php");
+    header("Location: login.php");
     exit();
 }
 
@@ -36,6 +36,28 @@ $platsByCuisine = [];
 foreach ($plats as $plat) {
     $platsByCuisine[$plat['TypeCuisine']][] = $plat;
 }
+
+if (isset($_POST['add_to_cart'])) {
+
+
+
+
+    $plat = [
+        'id' => $_POST['plat_id'],
+        'name' => $_POST['plat_name'],
+        'price' => $_POST['plat_price'],
+        'image' => $_POST['plat_image'],
+        'quantity' => $_POST['quantity']
+    ];
+
+    $_SESSION['cart'][] = $plat;
+
+    header("Location: home.php");
+    exit();
+
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,7 +123,15 @@ foreach ($plats as $plat) {
                             <h3><?= htmlspecialchars($plat['nomPlat']) ?></h3>
                             <p>Category : <?= htmlspecialchars($plat['categoriePlat']) ?></p>
                             <p>Price : <?= htmlspecialchars($plat['prix']) ?> $</p>
-                            <button id="OrderBtn">Order now</button>
+                            <form method="POST">
+                                <input type="hidden" name="plat_id" value="<?=$plat['idPlat']?>">
+                                <input type="hidden" name="plat_name" value="<?=$plat['nomPlat']?>">
+                                <input type="hidden" name="plat_price" value="<?=$plat['prix']?>">
+                                <input type="hidden" name="plat_image" value="<?=$plat['image']?>">
+                                <input type="hidden" name="quantity" value="1">
+                                <button id="OrderBtn" name="add_to_cart">Order now</button>
+                            </form>
+                            
                         </div>
                     </div>
                 <?php endforeach; ?>
