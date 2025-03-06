@@ -7,29 +7,43 @@ if (!isset($_SESSION['isLogin']) || !$_SESSION['isLogin']) {
 }
 
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_id'], $_POST['status'])) {
+    $order_id = $_POST['order_id'];
+    $status = $_POST['status'];
+
+    $sql = "UPDATE commande SET Statut = :status WHERE idCmd = :order_id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':status', $status);
+    $stmt->bindParam(':order_id', $order_id, PDO::PARAM_INT);
+
+    if ($stmt->execute()) {
+        echo json_encode(["success" => true, "message" => "Status updated successfully"]);
+    } else {
+        echo json_encode(["success" => false, "message" => "Failed to update status"]);
+    }
+    exit();
+}
+
+
 $sql = "SELECT * FROM commande WHERE DATE(dateCmd) = CURDATE()";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 
 $sql = "SELECT COUNT(*) FROM commande";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $totalOrders = $stmt->fetchColumn();
 
-
 $sql = "SELECT COUNT(*) FROM commande WHERE Statut = 'annulée'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $canceledOrders = $stmt->fetchColumn();
 
-
 $sql = "SELECT COUNT(*) FROM client";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $totalClients = $stmt->fetchColumn();
-
 
 $sql = "SELECT plat.nomPlat, SUM(commande_plat.qte) as total_quantity
         FROM commande_plat
@@ -41,6 +55,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $orderedDishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,9 +73,7 @@ $orderedDishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <nav class="sidebar-menu">
         <ul>
-            <li>Home</li>
-            <li>clients</li>
-            <li>Orders</li>
+            <li>Déconnexion</li>
         </ul>
     </nav>
 </aside>
@@ -100,10 +113,9 @@ $orderedDishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <tr>
                                 <td><?= $order['idCmd'] ?></td>
                                 <td><?= $order['dateCmd'] ?></td>
-                                <td><?= $order['Statut'] ?></td>
+                                <td class="status-text"><?= $order['Statut'] ?></td>
                                 <td>
-                                    <form method="POST" action="update_order_status.php">
-                                        <input type="hidden" name="order_id" value="<?= $order['idCmd'] ?>">
+                                    <form class="update-status-form" data-id="<?= $order['idCmd'] ?>">
                                         <select name="status">
                                             <option value="en attente" <?= $order['Statut'] == 'en attente' ? 'selected' : '' ?>>En attente</option>
                                             <option value="en cours" <?= $order['Statut'] == 'en cours' ? 'selected' : '' ?>>En cours</option>
@@ -117,6 +129,7 @@ $orderedDishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
+
                 </table>
             <?php else: ?>
                 <p>No orders for today.</p>
@@ -139,6 +152,41 @@ $orderedDishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </main>
 
 <footer></footer>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const forms = document.querySelectorAll(".update-status-form");
+
+    forms.forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const orderId = this.getAttribute("data-id");
+            const status = this.querySelector("select[name='status']").value;
+
+            const formData = new FormData();
+            formData.append("order_id", orderId);
+            formData.append("status", status);
+
+            fetch("admin.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                
+                    this.closest("tr").querySelector(".status-text").textContent = status;
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    });
+});
+</script>
 
 </body>
 </html>

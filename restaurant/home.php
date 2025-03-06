@@ -110,16 +110,22 @@ if (isset($_POST['add_to_cart'])) {
             <button type="submit" name="search">
                 <i class="fa-solid fa-magnifying-glass"></i> Recherche
             </button>
-            <!-- <button type="button" onclick="window.location.href='home.php'">
-                <i class="fa-regular fa-circle-xmark"></i> Clair
-            </button> -->
         </form>
     </section>
         <div class="navMenu">
-            <!-- client name positioning -->
-            <ul>
+        <form method="POST" action="cart.php">
+            <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
+                <img id="cartImage" src="images/cart.png" alt="">
+            </button>
+        </form>
+        <form method="POST" action="login.php">
+            <button type="submit" name="logout" style="background: none; border: none; padding: 0; cursor: pointer;">
+        <ul>
                 <li>Déconnexion</li>
             </ul>
+            </button>
+        </form>
+            
         </div>
     </nav>
 </header>

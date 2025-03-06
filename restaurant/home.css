@@ -31,6 +31,10 @@ body {
     cursor: pointer;
 }
 
+.navMenu{
+    display: flex;
+    gap: 20px;
+}
 
 .navMenu ul {
     list-style: none;
@@ -89,6 +93,23 @@ button:hover,
     color: white;
     background-color: #e5533d;
 }
+
+#cartImage {
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    object-fit: contain;
+    /* display: inline-block; */
+    vertical-align: middle;
+    margin-left: 20px;
+}
+
+#cartImage:hover {
+    transform: scale(1.1);
+}
+
+
 
 .heroSection{
     width: 100%;

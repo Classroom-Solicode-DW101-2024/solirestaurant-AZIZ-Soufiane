@@ -70,7 +70,7 @@ if (isset($_POST['validate_order'])) {
 
         unset($_SESSION['cart']);
 
-        echo "your order has been validated successfully!";
+        // echo "your order has been validated successfully!";
 
 
     } catch (Exception $e) {
@@ -90,6 +90,12 @@ if (isset($_POST['validate_order'])) {
     <link rel="stylesheet" href="cart.css">
 </head>
 <body>
+
+<a href="home.php">
+        <button style="position: fixed; top: 10px; left: 10px; padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Accueil
+        </button>
+    </a>
 
     <div class="mainSection">
         <h2 class="cartTitle">My Cart</h2>
