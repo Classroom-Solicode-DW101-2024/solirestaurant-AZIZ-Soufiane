@@ -52,16 +52,18 @@ $orderedDishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-<header>
-    <nav class="navBar">
+<aside class="sidebar">
+    <div class="sidebar-header">
         <img src="images/logo.png" alt="Logo">
-        <div class="navMenu">
-            <ul>
-                <li>Déconnexion</li>
-            </ul>
-        </div>
+    </div>
+    <nav class="sidebar-menu">
+        <ul>
+            <li>Home</li>
+            <li>clients</li>
+            <li>Orders</li>
+        </ul>
     </nav>
-</header>
+</aside>
 
 <main>
     <section class="heroSection">
@@ -88,7 +90,6 @@ $orderedDishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <thead>
                         <tr>
                             <th>Order ID</th>
-                            <th>Client ID</th>
                             <th>Date</th>
                             <th>Status</th>
                             <th>Update Status</th>
@@ -98,7 +99,6 @@ $orderedDishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php foreach ($orders as $order): ?>
                             <tr>
                                 <td><?= $order['idCmd'] ?></td>
-                                <td><?= $order['idCl'] ?></td>
                                 <td><?= $order['dateCmd'] ?></td>
                                 <td><?= $order['Statut'] ?></td>
                                 <td>

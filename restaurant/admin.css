@@ -5,56 +5,65 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    display: flex;
 }
 
 
-.navBar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
+.sidebar {
+    width: 15%;
+    height: 100vh; 
     background: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px); 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     position: fixed;
-    width: 90%;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
     z-index: 100;
 }
 
-.navBar img {
-    height: 50px;
+.sidebar-header {
+    margin-bottom: 30px;
+}
+
+.sidebar-header img {
+    height: 60px;
     cursor: pointer;
 }
 
-.navMenu ul {
+.sidebar-menu ul {
     list-style: none;
-    display: flex;
-    gap: 20px;
-    margin: 0;
     padding: 0;
+    margin: 0;
+    flex-grow: 1;
 }
 
-.navMenu li {
-    padding: 8px 8px;
-    font-size: 1rem;
+.sidebar-menu li {
+    padding: 15px 20px;
+    font-size: 1.1rem;
     font-weight: bold;
     color: #1a1a1a;
     cursor: pointer;
     transition: 0.3s;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 
-.navMenu li:hover {
+.sidebar-menu li:hover {
     background: #ff6347;
+    color: #fff;
 }
 
+
+main {
+    margin-left: 20%;
+    width: 80%;
+}
 
 .heroSection {
-    padding: 80px 20px 20px 20px;
+    padding-top: 10px; /* Adjusted padding since no top navbar */
 }
 
 .admin-title {
@@ -63,7 +72,6 @@ body {
     margin-bottom: 40px;
     color: #1a1a1a;
 }
-
 
 .statistics {
     display: flex;
@@ -90,7 +98,6 @@ body {
     font-size: 22px;
     color: #1a1a1a;
 }
-
 
 .orders-section, .dishes-section {
     margin-top: 40px;
@@ -148,11 +155,11 @@ body {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 8px;
-    color: #1a1a1a; 
+    color: #1a1a1a;
 }
-
 
 footer {
     height: 50px;
     background-color: #e0e0e0;
+    margin-left: 250px; /* Align footer with main content */
 }

@@ -110,9 +110,9 @@ if (isset($_POST['add_to_cart'])) {
             <button type="submit" name="search">
                 <i class="fa-solid fa-magnifying-glass"></i> Recherche
             </button>
-            <button type="button" onclick="window.location.href='home.php'">
+            <!-- <button type="button" onclick="window.location.href='home.php'">
                 <i class="fa-regular fa-circle-xmark"></i> Clair
-            </button>
+            </button> -->
         </form>
     </section>
         <div class="navMenu">
