@@ -132,8 +132,7 @@ if (isset($_POST['add_to_cart'])) {
 
 <main>
     <section class="heroSection">
-        <div class="food-image"></div>
-        <div class="text-Search"></div>
+        <h1 class="hero-text">Deishious Food awaits you</h1>
     </section>
 
     <?php if (!empty($platsByCuisine)): ?>
@@ -166,6 +165,21 @@ if (isset($_POST['add_to_cart'])) {
     <?php endif; ?>
 </main>
 
-<footer></footer>
+<footer>
+<div class="footer-content">
+        <div class="footer-logo">
+            <img src="images/logo.png" alt="Delish Logo">
+        </div>
+        <div class="footer-links">
+            <ul>
+                <li><a href="#">Accueil</a></li>
+                <li><a href="cart.php">pannier</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Delish. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

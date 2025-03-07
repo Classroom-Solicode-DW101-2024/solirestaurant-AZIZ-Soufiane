@@ -1,8 +1,9 @@
 <?php
 require 'config.php';
 
-if (!isset($_SESSION['isLogin']) || !$_SESSION['isLogin']) {
-    header('Location: login.php');
+if (!isset($_SESSION['isAdminLogin']) || $_SESSION['isAdminLogin'] !== true) {
+    header('Location: adminLogin.php');
+    unset($_SESSION['isAdminLogin']);
     exit();
 }
 
@@ -54,6 +55,14 @@ $sql = "SELECT plat.nomPlat, SUM(commande_plat.qte) as total_quantity
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $orderedDishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if(isset($_POST['adminlogout'])){
+    session_destroy();
+    header('Location: adminLogin.php');
+    exit();
+}  
+
+
 ?>
 
 
@@ -72,9 +81,13 @@ $orderedDishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <img src="images/logo.png" alt="Logo">
     </div>
     <nav class="sidebar-menu">
-        <ul>
-            <li>Déconnexion</li>
-        </ul>
+    <form method="POST">
+            <button type="submit" name="adminlogout" style="background: none; border: none; padding: 0; cursor: pointer;">
+            <ul>
+                <li>log out</li>
+            </ul>
+            </button>
+        </form>
     </nav>
 </aside>
 
@@ -151,7 +164,8 @@ $orderedDishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 </main>
 
-<footer></footer>
+<footer>
+</footer>
 
 
 <script>

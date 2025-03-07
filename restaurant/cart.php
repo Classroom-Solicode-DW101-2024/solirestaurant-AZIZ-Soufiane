@@ -5,6 +5,9 @@ if (!isset($_SESSION['isLogin']) || !$_SESSION['isLogin']) {
     header('Location: login.php');
     exit();
 }
+if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+    die("Your cart is empty.");
+}
 
 if (isset($_POST['update_quantity'])) {
     $plat_id = $_POST['plat_id'];
@@ -69,8 +72,6 @@ if (isset($_POST['validate_order'])) {
         $pdo->commit();
 
         unset($_SESSION['cart']);
-
-        // echo "your order has been validated successfully!";
 
 
     } catch (Exception $e) {
